@@ -1,10 +1,9 @@
-package com.example.imagepro;
+package com.example.objectdetection;
 
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 
-import org.checkerframework.checker.units.qual.A;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -15,7 +14,6 @@ import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -87,7 +85,10 @@ public class objectDetectorClass {
     public Mat recognizeImage(Mat mat_image){
         // Rotate original image by 90 degree get get portrait frame
         Mat rotated_mat_image=new Mat();
-        Core.flip(mat_image.t(),rotated_mat_image,1);
+
+        Mat a=mat_image.t();
+        Core.flip(a,rotated_mat_image,1);
+        a.release();
         // if you do not do this process you will get improper prediction, less no. of object
         // now convert it to bitmap
         Bitmap bitmap=null;
@@ -163,7 +164,10 @@ public class objectDetectorClass {
         // select device and run
 
         // before returning rotate back by -90 degree
-        Core.flip(rotated_mat_image.t(),mat_image,0);
+        Mat b=rotated_mat_image.t();
+
+        Core.flip(b,mat_image,0);
+        b.release();
         return mat_image;
     }
 

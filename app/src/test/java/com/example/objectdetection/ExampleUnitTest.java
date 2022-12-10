@@ -1,4 +1,4 @@
-package com.example.imagepro;
+package com.example.objectdetection;
 
 import org.junit.Test;
 

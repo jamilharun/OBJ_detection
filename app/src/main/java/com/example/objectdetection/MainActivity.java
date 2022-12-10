@@ -1,8 +1,9 @@
-package com.example.imagepro;
+package com.example.objectdetection;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import org.opencv.android.OpenCVLoader;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    MediaPlayer player;
     static {
         if(OpenCVLoader.initDebug()){
             Log.d("MainActivity: ","Opencv is loaded");
@@ -26,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        media player
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
 
         // select device and run
@@ -37,13 +43,14 @@ public class MainActivity extends AppCompatActivity {
         // Next tutorial will be about predicting using Interpreter
 
 
-        camera_button=findViewById(R.id.camera_button);
-        camera_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+//        camera_button=findViewById(R.id.camera_button);
+//        camera_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//            }
+//        }
+//        );
 
     }
 }
