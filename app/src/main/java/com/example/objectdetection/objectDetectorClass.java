@@ -3,6 +3,7 @@ package com.example.objectdetection;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.speech.tts.TextToSpeech;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -158,6 +159,13 @@ public class objectDetectorClass {
                 // write text on frame
                                                 // string of class name of object  // starting point                         // color of text           // size of text
                 Imgproc.putText(rotated_mat_image,labelList.get((int) class_value),new Point(left,top),3,1,new Scalar(255, 0, 0, 255),2);
+
+//               nice napagana ko na
+                // this could be a array of names
+                String labelname =  labelList.get((int) class_value);
+                // System.out.println(labelname);
+                // send labelname to texttospeach function
+                convertTextToSpeech(labelname);
             }
 
         }
@@ -209,6 +217,17 @@ public class objectDetectorClass {
         }
     return byteBuffer;
     }
-}
 // Next video is about drawing box and labeling it
 // If you have any problem please inform me
+
+    private TextToSpeech mTTs;
+
+    private void convertTextToSpeech(String Labelname){
+        // testing
+        System.out.println(Labelname);
+        mTTs.speak(Labelname, TextToSpeech.QUEUE_ADD, null);
+        System.out.println("if the message reach this means gumana");
+    }
+
+}
+

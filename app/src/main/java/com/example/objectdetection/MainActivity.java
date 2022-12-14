@@ -26,17 +26,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private Button camera_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        media player
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // start activity for Camera
         startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
+        // text to voice
         String labelName = "testing";
         mTTs = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("TTS", "Language not supported");
                     } else {
                         Log.e("TTS", "Language is Working");
-                        voiceResponce(labelName);
+                        //voiceResponce(labelName);
                     }
                 } else {
                     Log.e("TTS", "Initialization Failed");
                 }
             }
-            private void voiceResponce(String labelName) {
-                mTTs.speak(labelName, TextToSpeech.QUEUE_ADD, null);
-                System.out.println("yoooooooowwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-            }
+//            private void voiceResponce(String labelName) {
+//                mTTs.speak(labelName, TextToSpeech.QUEUE_ADD, null);
+//                System.out.println("yoooooooowwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+//            }
         }
         );
         // select device and run
