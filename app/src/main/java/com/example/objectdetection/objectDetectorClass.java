@@ -4,6 +4,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -42,6 +43,8 @@ public class objectDetectorClass {
     private GpuDelegate gpuDelegate;
     private int height=0;
     private  int width=0;
+
+    private TextToSpeech mTTs;
 
     objectDetectorClass(AssetManager assetManager,String modelPath, String labelPath,int inputSize) throws IOException{
         INPUT_SIZE=inputSize;
@@ -220,14 +223,21 @@ public class objectDetectorClass {
 // Next video is about drawing box and labeling it
 // If you have any problem please inform me
 
-    private TextToSpeech mTTs;
 
-    private void convertTextToSpeech(String Labelname){
-        // testing
+
+    public void convertTextToSpeech(String Labelname){
+        String test_text = "yoooooowwwwwww";
+
+        // how to self this variable without ruining the process
+        // di talaga nagana pag gagamit ako ng object
+//        VoiceResponce mainobj = new VoiceResponce();
+//        mainobj.TextToVoice(test_text);
+
         System.out.println(Labelname);
-        mTTs.speak(Labelname, TextToSpeech.QUEUE_ADD, null);
-        System.out.println("if the message reach this means gumana");
-    }
+        System.out.println(test_text);
 
+//        mTTs.speak(Labelname,TextToSpeech.QUEUE_FLUSH, null);
+
+    }
 }
 

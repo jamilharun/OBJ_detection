@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import org.opencv.android.OpenCVLoader;
 
@@ -16,7 +17,12 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private TextToSpeech mTTs;
+    TextToSpeech mTTs;
+    EditText edi;
+
+//    String get_string =  getString(objectDetectorClass, )
+//    String labelname = "";
+
     static {
         if(OpenCVLoader.initDebug()){
             Log.d("MainActivity: ","Opencv is loaded");
@@ -37,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         // text to voice
-        String labelName = "testing";
-        mTTs = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+
+        mTTs = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
                 if(i == TextToSpeech.SUCCESS) {
@@ -49,14 +55,20 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("TTS", "Language not supported");
                     } else {
                         Log.e("TTS", "Language is Working");
-                        //voiceResponce(labelName);
+
+//                        String[] test = {"hello", "jamil"};
+//                        System.out.println(test[0]);
+//                        String a = "yoooowww";
+//                        mTTs.speak(a, TextToSpeech.QUEUE_ADD, null);
                     }
                 } else {
                     Log.e("TTS", "Initialization Failed");
                 }
             }
-//            private void voiceResponce(String labelName) {
-//                mTTs.speak(labelName, TextToSpeech.QUEUE_ADD, null);
+//            public void voiceResponce() throws IOException {
+//                objectDetectorClass textobj = new objectDetectorClass();
+//                textobj.convertTextToSpeech(String labelName);
+//                mTTs.speak("sdf", TextToSpeech.QUEUE_ADD, null);
 //                System.out.println("yoooooooowwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
 //            }
         }
@@ -77,5 +89,15 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        );
 
+    }
+
+    public void voiceResponce(String Labelname) {
+        mTTs.speak(Labelname, TextToSpeech.QUEUE_ADD, null);
+        System.out.println(Labelname);
+        System.out.println();
+        System.out.println("yoooooooowwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 }
