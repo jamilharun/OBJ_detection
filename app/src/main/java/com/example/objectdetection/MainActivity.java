@@ -91,13 +91,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void voiceResponce(String Labelname) {
-        mTTs.speak(Labelname, TextToSpeech.QUEUE_ADD, null);
-        System.out.println(Labelname);
-        System.out.println();
-        System.out.println("yoooooooowwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-    }
 }

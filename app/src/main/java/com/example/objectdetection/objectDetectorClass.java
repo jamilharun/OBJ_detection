@@ -170,7 +170,7 @@ public class objectDetectorClass {
                 String labelname =  labelList.get((int) class_value);
                 // System.out.println(labelname);
                 // send labelname to texttospeach function
-                convertTextToSpeech(labelname);
+//                convertTextToSpeech(labelname);
             }
 
         }
@@ -226,20 +226,5 @@ public class objectDetectorClass {
 // If you have any problem please inform me
 
 
-
-    public void convertTextToSpeech(String Labelname){
-        String test_text = "yoooooowwwwwww";
-
-        // how to self this variable without ruining the process
-        // di talaga nagana pag gagamit ako ng object
-//        VoiceResponce mainobj = new VoiceResponce();
-//        mainobj.TextToVoice(test_text);
-
-        System.out.println(Labelname);
-        System.out.println(test_text);
-
-//        mTTs.speak(Labelname,TextToSpeech.QUEUE_FLUSH, null);
-
-    }
 }
 
