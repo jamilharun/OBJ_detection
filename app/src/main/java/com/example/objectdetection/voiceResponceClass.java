@@ -183,44 +183,44 @@ public class voiceResponceClass {
         return mat_image;
     }
 
-//    private ByteBuffer convertBitmapToByteBuffer(Bitmap bitmap) {
-//        ByteBuffer byteBuffer;
-//        // some model input should be quant=0  for some quant=1
-//        // for this quant=0
-//
-//        int quant=0;
-//        int size_images=INPUT_SIZE;
-//        if(quant==0){
-//            byteBuffer=ByteBuffer.allocateDirect(1*size_images*size_images*3);
-//        }
-//        else {
-//            byteBuffer=ByteBuffer.allocateDirect(4*1*size_images*size_images*3);
-//        }
-//        byteBuffer.order(ByteOrder.nativeOrder());
-//        int[] intValues=new int[size_images*size_images];
-//        bitmap.getPixels(intValues,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
-//        int pixel=0;
-//
-//        // some error
-//        //now run
-//        for (int i=0;i<size_images;++i){
-//            for (int j=0;j<size_images;++j){
-//                final  int val=intValues[pixel++];
-//                if(quant==0){
-//                    byteBuffer.put((byte) ((val>>16)&0xFF));
-//                    byteBuffer.put((byte) ((val>>8)&0xFF));
-//                    byteBuffer.put((byte) (val&0xFF));
-//                }
-//                else {
-//                    // paste this
-//                    byteBuffer.putFloat((((val >> 16) & 0xFF))/255.0f);
-//                    byteBuffer.putFloat((((val >> 8) & 0xFF))/255.0f);
-//                    byteBuffer.putFloat((((val) & 0xFF))/255.0f);
-//                }
-//            }
-//        }
-//        return byteBuffer;
-//    }
+    private ByteBuffer convertBitmapToByteBuffer(Bitmap bitmap) {
+        ByteBuffer byteBuffer;
+        // some model input should be quant=0  for some quant=1
+        // for this quant=0
+
+        int quant=0;
+        int size_images=INPUT_SIZE;
+        if(quant==0){
+            byteBuffer=ByteBuffer.allocateDirect(1*size_images*size_images*3);
+        }
+        else {
+            byteBuffer=ByteBuffer.allocateDirect(4*1*size_images*size_images*3);
+        }
+        byteBuffer.order(ByteOrder.nativeOrder());
+        int[] intValues=new int[size_images*size_images];
+        bitmap.getPixels(intValues,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
+        int pixel=0;
+
+        // some error
+        //now run
+        for (int i=0;i<size_images;++i){
+            for (int j=0;j<size_images;++j){
+                final  int val=intValues[pixel++];
+                if(quant==0){
+                    byteBuffer.put((byte) ((val>>16)&0xFF));
+                    byteBuffer.put((byte) ((val>>8)&0xFF));
+                    byteBuffer.put((byte) (val&0xFF));
+                }
+                else {
+                    // paste this
+                    byteBuffer.putFloat((((val >> 16) & 0xFF))/255.0f);
+                    byteBuffer.putFloat((((val >> 8) & 0xFF))/255.0f);
+                    byteBuffer.putFloat((((val) & 0xFF))/255.0f);
+                }
+            }
+        }
+        return byteBuffer;
+    }
 
     public void convertTextToSpeech(String Labelname){
         String test_text = "yoooooowwwwwww";
