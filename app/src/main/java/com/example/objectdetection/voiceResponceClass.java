@@ -1,5 +1,6 @@
 package com.example.objectdetection;
 
+
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -28,10 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class objectDetectorClass {
-    // should start from small letter
 
-    // this is used to load model and predict
+public class voiceResponceClass {
     private Interpreter interpreter;
     // store all label in array
     private List<String> labelList;
@@ -46,7 +45,7 @@ public class objectDetectorClass {
 
     private TextToSpeech mTTs;
 
-    objectDetectorClass(AssetManager assetManager,String modelPath, String labelPath,int inputSize) throws IOException{
+    voiceResponceClass(AssetManager assetManager,String modelPath, String labelPath,int inputSize) throws IOException{
         INPUT_SIZE=inputSize;
         // use to define gpu or cpu // no. of threads
         Interpreter.Options options=new Interpreter.Options();
@@ -85,7 +84,7 @@ public class objectDetectorClass {
 
         return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,declaredLength);
     }
-    // create new Mat function
+
     public Mat recognizeImage(Mat mat_image){
         // Rotate original image by 90 degree get get portrait frame
         Mat rotated_mat_image=new Mat();
@@ -103,17 +102,17 @@ public class objectDetectorClass {
         width=bitmap.getWidth();
 
         // scale the bitmap to input size of model
-         Bitmap scaledBitmap=Bitmap.createScaledBitmap(bitmap,INPUT_SIZE,INPUT_SIZE,false);
+        Bitmap scaledBitmap=Bitmap.createScaledBitmap(bitmap,INPUT_SIZE,INPUT_SIZE,false);
 
-         // convert bitmap to bytebuffer as model input should be in it
-        ByteBuffer byteBuffer=convertBitmapToByteBuffer(scaledBitmap);
+        // convert bitmap to bytebuffer as model input should be in it
+//        ByteBuffer byteBuffer=convertBitmapToByteBuffer(scaledBitmap);
 
         // defining output
         // 10: top 10 object detected
         // 4: there coordinate in image
-      //  float[][][]result=new float[1][10][4];
+        //  float[][][]result=new float[1][10][4];
         Object[] input=new Object[1];
-        input[0]=byteBuffer;
+//        input[0]=byteBuffer;
 
         Map<Integer,Object> output_map=new TreeMap<>();
         // we are not going to use this method of output
@@ -160,7 +159,7 @@ public class objectDetectorClass {
                 // draw rectangle in Original frame //  starting point    // ending point of box  // color of box       thickness
                 Imgproc.rectangle(rotated_mat_image,new Point(left,top),new Point(right,bottom),new Scalar(0, 255, 0, 255),2);
                 // write text on frame
-                                                // string of class name of object  // starting point                         // color of text           // size of text
+                // string of class name of object  // starting point                         // color of text           // size of text
                 Imgproc.putText(rotated_mat_image,labelList.get((int) class_value),new Point(left,top),3,1,new Scalar(255, 0, 0, 255),2);
 
 
@@ -184,48 +183,44 @@ public class objectDetectorClass {
         return mat_image;
     }
 
-    private ByteBuffer convertBitmapToByteBuffer(Bitmap bitmap) {
-        ByteBuffer byteBuffer;
-        // some model input should be quant=0  for some quant=1
-        // for this quant=0
-
-        int quant=0;
-        int size_images=INPUT_SIZE;
-        if(quant==0){
-            byteBuffer=ByteBuffer.allocateDirect(1*size_images*size_images*3);
-        }
-        else {
-            byteBuffer=ByteBuffer.allocateDirect(4*1*size_images*size_images*3);
-        }
-        byteBuffer.order(ByteOrder.nativeOrder());
-        int[] intValues=new int[size_images*size_images];
-        bitmap.getPixels(intValues,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
-        int pixel=0;
-
-        // some error
-        //now run
-        for (int i=0;i<size_images;++i){
-            for (int j=0;j<size_images;++j){
-                final  int val=intValues[pixel++];
-                if(quant==0){
-                    byteBuffer.put((byte) ((val>>16)&0xFF));
-                    byteBuffer.put((byte) ((val>>8)&0xFF));
-                    byteBuffer.put((byte) (val&0xFF));
-                }
-                else {
-                    // paste this
-                    byteBuffer.putFloat((((val >> 16) & 0xFF))/255.0f);
-                    byteBuffer.putFloat((((val >> 8) & 0xFF))/255.0f);
-                    byteBuffer.putFloat((((val) & 0xFF))/255.0f);
-                }
-            }
-        }
-    return byteBuffer;
-    }
-// Next video is about drawing box and labeling it
-// If you have any problem please inform me
-
-
+//    private ByteBuffer convertBitmapToByteBuffer(Bitmap bitmap) {
+//        ByteBuffer byteBuffer;
+//        // some model input should be quant=0  for some quant=1
+//        // for this quant=0
+//
+//        int quant=0;
+//        int size_images=INPUT_SIZE;
+//        if(quant==0){
+//            byteBuffer=ByteBuffer.allocateDirect(1*size_images*size_images*3);
+//        }
+//        else {
+//            byteBuffer=ByteBuffer.allocateDirect(4*1*size_images*size_images*3);
+//        }
+//        byteBuffer.order(ByteOrder.nativeOrder());
+//        int[] intValues=new int[size_images*size_images];
+//        bitmap.getPixels(intValues,0,bitmap.getWidth(),0,0,bitmap.getWidth(),bitmap.getHeight());
+//        int pixel=0;
+//
+//        // some error
+//        //now run
+//        for (int i=0;i<size_images;++i){
+//            for (int j=0;j<size_images;++j){
+//                final  int val=intValues[pixel++];
+//                if(quant==0){
+//                    byteBuffer.put((byte) ((val>>16)&0xFF));
+//                    byteBuffer.put((byte) ((val>>8)&0xFF));
+//                    byteBuffer.put((byte) (val&0xFF));
+//                }
+//                else {
+//                    // paste this
+//                    byteBuffer.putFloat((((val >> 16) & 0xFF))/255.0f);
+//                    byteBuffer.putFloat((((val >> 8) & 0xFF))/255.0f);
+//                    byteBuffer.putFloat((((val) & 0xFF))/255.0f);
+//                }
+//            }
+//        }
+//        return byteBuffer;
+//    }
 
     public void convertTextToSpeech(String Labelname){
         String test_text = "yoooooowwwwwww";
@@ -238,8 +233,7 @@ public class objectDetectorClass {
         System.out.println(Labelname);
         System.out.println(test_text);
 
-//        mTTs.speak(Labelname,TextToSpeech.QUEUE_FLUSH, null);
+        mTTs.speak(Labelname,TextToSpeech.QUEUE_FLUSH, null);
 
     }
 }
-
