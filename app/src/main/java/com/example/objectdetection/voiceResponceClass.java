@@ -225,6 +225,7 @@ public class voiceResponceClass {
     public void convertTextToSpeech(String Labelname){
         String test_text = "yoooooowwwwwww";
 
+        //testing
         // how to self this variable without ruining the process
         // di talaga nagana pag gagamit ako ng object
 //        VoiceResponce mainobj = new VoiceResponce();
