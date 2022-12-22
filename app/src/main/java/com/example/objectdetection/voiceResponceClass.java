@@ -169,6 +169,8 @@ public class voiceResponceClass {
                 String labelname =  labelList.get((int) class_value);
                 // System.out.println(labelname);
                 // send labelname to texttospeach function
+                System.out.println("voice responce is running");
+
                 convertTextToSpeech(labelname);
             }
 

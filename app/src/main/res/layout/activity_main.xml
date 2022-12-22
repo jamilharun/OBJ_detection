@@ -7,12 +7,20 @@
     tools:context=".MainActivity"
     android:gravity="center">
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:id="@+id/camera_button"-->
-<!--        android:text="Object"-->
-<!--        />-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/camera_button"
+        android:text="Object"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/objectName"
+        android:textAllCaps="true"
+        android:layout_margin="100dp"
+        />
 
 
 </LinearLayout>

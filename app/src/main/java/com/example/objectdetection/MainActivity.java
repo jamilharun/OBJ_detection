@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    String get_string =  getString(objectDetectorClass, )
 //    String labelname = "";
-
+    Button camera_button;
     static {
         if(OpenCVLoader.initDebug()){
             Log.d("MainActivity: ","Opencv is loaded");
@@ -40,39 +40,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // start activity for Camera
-        startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//        startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//        startActivity(new Intent(MainActivity.this,CombineLetterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         // text to voice
 
-        mTTs = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                if(i == TextToSpeech.SUCCESS) {
-                    int result = mTTs.setLanguage(Locale.ENGLISH);
-
-                    if (result == TextToSpeech.LANG_MISSING_DATA
-                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("TTS", "Language not supported");
-                    } else {
-                        Log.e("TTS", "Language is Working");
-
-//                        String[] test = {"hello", "jamil"};
-//                        System.out.println(test[0]);
-//                        String a = "yoooowww";
-//                        mTTs.speak(a, TextToSpeech.QUEUE_ADD, null);
-                    }
-                } else {
-                    Log.e("TTS", "Initialization Failed");
-                }
-            }
-//            public void voiceResponce() throws IOException {
-//                objectDetectorClass textobj = new objectDetectorClass();
-//                textobj.convertTextToSpeech(String labelName);
-//                mTTs.speak("sdf", TextToSpeech.QUEUE_ADD, null);
-//                System.out.println("yoooooooowwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+//        mTTs = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+//            @Override
+//            public void onInit(int i) {
+//                if(i == TextToSpeech.SUCCESS) {
+//                    int result = mTTs.setLanguage(Locale.ENGLISH);
+//
+//                    if (result == TextToSpeech.LANG_MISSING_DATA
+//                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+//                        Log.e("TTS", "Language not supported");
+//                    } else {
+//                        Log.e("TTS", "Language is Working");
+//                    }
+//                } else {
+//                    Log.e("TTS", "Initialization Failed");
+//                }
 //            }
-        }
-        );
+//        }
+//        );
         // select device and run
         // we successfully loaded model
         // before next tutorial
@@ -80,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
         // Next tutorial will be about predicting using Interpreter
 
 
-//        camera_button=findViewById(R.id.camera_button);
-//        camera_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-//            }
-//        }
-//        );
+        camera_button=findViewById(R.id.camera_button);
+        camera_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        }
+        );
 
     }
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -30,6 +31,9 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
     private objectDetectorClass objectDetectorClass;
+
+    private TextView objectName;
+
     private BaseLoaderCallback mLoaderCallback =new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -72,9 +76,11 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         mOpenCvCameraView.enableFpsMeter();
+
+        // objectName.findViewById(R.id.objectName); // dito  po?
         try{
             // input size is 300 for this model
-            objectDetectorClass=new objectDetectorClass(getAssets(),"ssd_mobilenet.tflite","labelmap.txt",300);
+            objectDetectorClass=new objectDetectorClass(CameraActivity.this, objectName, getAssets(),"ssd_mobilenet.tflite","labelmap.txt",300);
             Log.d("MainActivity","Model is successfully loaded");
         }
         catch (IOException e){

@@ -1,11 +1,14 @@
 package com.example.objectdetection;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.TextView;
 
+import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -25,6 +28,7 @@ import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -45,8 +49,10 @@ public class objectDetectorClass {
     private  int width=0;
 
     private TextToSpeech mTTs;
+    private String object_name = "";
 
-    objectDetectorClass(AssetManager assetManager,String modelPath, String labelPath,int inputSize) throws IOException{
+
+    objectDetectorClass(Context context, TextView objectName, AssetManager assetManager, String modelPath, String labelPath, int inputSize) throws IOException{
         INPUT_SIZE=inputSize;
         // use to define gpu or cpu // no. of threads
         Interpreter.Options options=new Interpreter.Options();
@@ -57,8 +63,32 @@ public class objectDetectorClass {
         interpreter=new Interpreter(loadModelFile(assetManager,modelPath),options);
         // load labelmap
         labelList=loadLabelList(assetManager,labelPath);
+//        Sting objectNameSpeech = objectName;
+        //
 
 
+        // not working
+        mTTs = new TextToSpeech(context,new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i ==  TextToSpeech.SUCCESS){
+                    int result = mTTs.setLanguage(Locale.ENGLISH);
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                        || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    } else {
+                        Log.e("TTS", "Language is Working");
+                    }
+                } else {
+                    Log.e("TTS", "Initialization Failed");
+                }
+            }
+        });
+        // cant seem to output abject name. for some reason
+        System.out.println("object name:" + object_name);
+        System.out.println("object name:" + object_name);
+        System.out.println("object name:" + object_name);
+//        mTTs.speak("shhheessshhh", TextToSpeech.QUEUE_ADD, null);
     }
 
     private List<String> loadLabelList(AssetManager assetManager, String labelPath) throws IOException {
@@ -171,6 +201,14 @@ public class objectDetectorClass {
                 // System.out.println(labelname);
                 // send labelname to texttospeach function
 //                convertTextToSpeech(labelname);
+                System.out.println("object detection running");
+                System.out.println(labelname);
+                object_name = "";
+                object_name = labelname; //good here
+
+//                System.out.println(object_name);
+                mTTs.speak(object_name, TextToSpeech.QUEUE_ADD, null);
+//                mTTs = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             }
 
         }
@@ -224,7 +262,6 @@ public class objectDetectorClass {
     }
 // Next video is about drawing box and labeling it
 // If you have any problem please inform me
-
 
 }
 
